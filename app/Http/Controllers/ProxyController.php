@@ -37,6 +37,21 @@ class ProxyController extends Controller
                     return ResponseController::unexpected_error();
             }
         }
-        return ResponseController::success($response->body());
+        try {
+            $ext = explode('.', $path)[1];
+        } catch (\ErrorException $e) {
+            $ext = ' ';
+        }
+        switch($ext) {
+            case 'css':
+                $type = 'text/css';
+                break;
+            case 'mp3':
+                $type = 'audio/mpeg';
+                break;
+            default:
+                $type = 'text/html';
+        }
+        return ResponseController::success($response->body(), $type);
     }
 }

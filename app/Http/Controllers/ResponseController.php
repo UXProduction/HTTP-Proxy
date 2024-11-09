@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 class ResponseController
 {
-    public static function success($data) {
-        return response($data, 200);
+    public static function success($data, $type) {
+        return response($data, 200, ['Content-Type' => $type]);
     }
 
     public static function link_not_valid() {
